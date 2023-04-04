@@ -1,0 +1,32 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type SingleTable @model(subscriptions: { level: off }, timestamps: null) {
+  pk: ID! @primaryKey(sortKeyFields: ["sk"])
+  sk: String!
+  gsi1pk: ID! @index(name: "gsi1pk", sortKeyFields: ["gsi1sk"], queryField: "getItemByGSI")
+  gsi1sk: String!
+  location: LocationVO
+  company: CompanyVO
+  openPosition: OpenPositionVO
+}
+
+type LocationVO {
+  country: String!
+  flagImageUrl: String!
+}
+
+type CompanyVO {
+  city: String!
+  name: String!
+  industry: String!
+  url: String!
+}
+
+type OpenPositionVO {
+  title: String!
+  seniority: String!
+  field: String!
+  skills: String!
+}
